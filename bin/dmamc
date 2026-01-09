@@ -1,0 +1,21 @@
+#!/bin/bash
+
+uuid="$(uuidgen)"
+while [[ -f "$DMAM_NOTES_PATH/$uuid.txt" ]]; do
+  uuid="$(uuidgen)"
+done
+
+touch "$DMAM_NOTES_PATH/$uuid.txt"
+vim "$DMAM_NOTES_PATH/$uuid.txt"
+
+if [[ ! -s "$DMAM_NOTES_PATH/$uuid.txt" ]]; then
+  echo "No content saved, removing empty file=[$uuid.txt]"
+  rm "$DMAM_NOTES_PATH/$uuid.txt"
+  exit 1
+fi
+
+echo "Note saved under [$uuid]"
+echo "#cdatenum=$(date +%Y%m%d%H%M)" >> "$DMAM_NOTES_PATH/$uuid.txt"
+echo "Auto tagged with date"
+
+# TODO: git stuff

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [[ $# -gt 0 ]]; then
+  search="$1"
+fi
+
+if [[ -z "$search" ]]; then
+  find "$DMAM_NOTES_PATH" -type f -name "*.txt" | \
+    xargs -I{} bash -c "echo '*** FILE=[{}]'; cat {}; echo ===" | \
+    less
+else
+  grep -rl $search $DMAM_NOTES_PATH/*.txt | \
+    xargs -I{} bash -c "echo '*** FILE=[{}]'; cat {}; echo ===" | \
+    less
+fi

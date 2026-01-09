@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ $# -lt 1 ]]; then
+  echo "Provide UUID as first argument and the only argument to remove note"
+  exit 1
+fi
+
+uuid="$1"
+
+if [[ ! -f "$DMAM_NOTES_PATH/$uuid.txt" ]]; then 
+  echo "Note by provided UUID not found."
+  exit 1
+fi
+
+rm "$DMAM_NOTES_PATH/$uuid.txt"
+
+echo "Note removed [$uuid]"
+
+# TODO: git stuff
